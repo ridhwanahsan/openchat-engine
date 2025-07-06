@@ -1,0 +1,1 @@
+<?php unlink('C:/Users/Dev Ridhwan/Local Sites/chatbot/app/public/wp-content/plugins/my-chatbot/admin/live-chat-admin.php'); ?>
