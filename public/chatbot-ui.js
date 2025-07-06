@@ -286,7 +286,7 @@ jQuery(document).ready(function ($) {
       type: "POST",
       url: openchat_engine_ajax.ajax_url,
       data: {
-        action: "save_email_support_request",
+        action: "save_openchat_engine_email_support_request",
         email: email,
         problem: problem,
         nonce: openchat_engine_ajax.nonce,

@@ -106,11 +106,15 @@ function openchat_engine_display()
 
     $bot_avatar_html = $bot_avatar_url ? '<img src="' . $bot_avatar_url . '" alt="Bot Avatar" class="rxd-bot-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '👤';
 
+    $recaptcha_html = '';
+    if ($recaptcha_enabled && $recaptcha_site_key) {
+        $recaptcha_html = '<div class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" style="margin-left:10px;"></div>';
+    }
     echo <<<HTML
+    
 <div id="rxd-chatbot-widget">
-    
-    
         <button id="rxd-chatbot-toggle">
+            {$recaptcha_html}
             <span class="rxd-chatbot-toggle-avatar">{$bot_avatar_html}</span>
         </button>
         <div id="rxd-chatbot-ui" style="display:none;">
@@ -128,13 +132,14 @@ function openchat_engine_display()
                 <input id="rxd-chat-input" type="text" placeholder="Type your message..." autocomplete="off" />
                 <button id="rxd-send-chat" type="button" title="Send">&#9658;</button>
             </div>
-            <div class="rxd-chat-suggestions-wrap" style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:0;">
+        <div class="rxd-chat-suggestions-wrap" style="width:100%;display:flex;  align-items:center;justify-content:space-between;margin-bottom:0;">
                 <button class="rxd-chat-suggestion-arrow" id="rxd-chat-suggestion-left" title="Scroll left">&#8592;</button>
                 <div id="rxd-chat-suggestions"></div>
                 <button class="rxd-chat-suggestion-arrow" id="rxd-chat-suggestion-right" title="Scroll right">&#8594;</button>
             </div>
         </div>
-    </div>
+</div>
+
 HTML;
 }
 add_action('wp_footer', 'openchat_engine_display');

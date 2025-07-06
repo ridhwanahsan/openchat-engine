@@ -35,22 +35,22 @@ function handle_openchat_engine_message()
     }
 
     // Per-user daily rate limit: max 10 questions per day
-    function get_user_chat_id()
+    function get_user_openchat_engine_id()
     {
         // Track user with a combination of IP + browser cookie
         $ip     = $_SERVER['REMOTE_ADDR'];
-        $cookie = isset($_COOKIE['chat_user_id']) ? sanitize_text_field($_COOKIE['chat_user_id']) : wp_generate_uuid4();
+        $cookie = isset($_COOKIE['openchat_engine_user_id']) ? sanitize_text_field($_COOKIE['openchat_engine_user_id']) : wp_generate_uuid4();
 
         // Set cookie if not set
-        if (! isset($_COOKIE['chat_user_id'])) {
-            setcookie('chat_user_id', $cookie, time() + (86400 * 30), "/");
+        if (! isset($_COOKIE['openchat_engine_user_id'])) {
+            setcookie('openchat_engine_user_id', $cookie, time() + (86400 * 30), "/");
         }
 
         return md5($ip . '_' . $cookie);
     }
 
-    $user_id       = get_user_chat_id();
-    $transient_key = 'chat_count_' . $user_id;
+    $user_id       = get_user_openchat_engine_id();
+    $transient_key = 'openchat_engine_count_' . $user_id;
     $count         = (int) get_transient($transient_key);
 
     if ($count >= 10) {
@@ -181,10 +181,10 @@ function handle_openchat_engine_message()
     ], 500);
 }
 
-add_action('wp_ajax_save_email_support_request', 'save_email_support_request');
-add_action('wp_ajax_nopriv_save_email_support_request', 'save_email_support_request');
+add_action('wp_ajax_save_openchat_engine_email_support_request', 'save_openchat_engine_email_support_request');
+add_action('wp_ajax_nopriv_save_openchat_engine_email_support_request', 'save_openchat_engine_email_support_request');
 
-function save_email_support_request() {
+function save_openchat_engine_email_support_request() {
     // Check nonce for security
     if (! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'openchat_engine_nonce')) {
         wp_send_json_error(['message' => 'Invalid nonce.'], 403);
@@ -234,12 +234,11 @@ function save_email_support_request() {
         $mail_sent = wp_mail($recipient_email, $subject, $body);
 
         if ($mail_sent) {
-            error_log('[OpenChat Engine Email Support Debug] Admin email notification sent successfully to: ' . $admin_email);
+            error_log('[OpenChat Engine Email Support Debug] Admin email notification sent successfully to: ' . $recipient_email);
             wp_send_json_success(['message' => 'Email support request saved successfully and admin notified.']);
         } else {
-            error_log('[OpenChat Engine Email Support Debug] Failed to send admin email notification to: ' . $admin_email);
-            // You might want to send_json_error here if email notification is critical
-            wp_send_json_success(['message' => 'Email support request saved successfully, but admin notification failed.']);
+            error_log('[OpenChat Engine Email Support Debug] Failed to send admin email notification to: ' . $recipient_email);
+            wp_send_json_error(['message' => 'Email support request saved successfully, but admin notification failed.']);
         }
     }
 }
@@ -279,15 +278,15 @@ function clear_openchat_engine_analytics_data() {
 }
 add_action('wp_ajax_clear_openchat_engine_analytics', 'clear_openchat_engine_analytics_data');
 
-function clear_email_support_data() {
+function clear_openchat_engine_email_support_data() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'openchat_engine_email_support';
 
-    error_log('[OpenChat Engine Clear Email Support Debug] clear_email_support_data function called.');
+    error_log('[OpenChat Engine Clear Email Support Debug] clear_openchat_engine_email_support_data function called.');
 
     // Check for nonce for security
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'openchat_engine_analytics_nonce')) {
-        error_log('[OpenChat Engine Clear Analytics Debug] Nonce verification failed.');
+        error_log('[OpenChat Engine Clear Email Support Debug] Nonce verification failed.');
         wp_send_json_error(['message' => 'Invalid nonce.'], 403);
     }
 
@@ -312,4 +311,4 @@ function clear_email_support_data() {
         wp_send_json_error(['message' => 'An unexpected error occurred: ' . $e->getMessage()]);
     }
 }
-add_action('wp_ajax_clear_email_support_data', 'clear_email_support_data');
+add_action('wp_ajax_clear_openchat_engine_email_support_data', 'clear_openchat_engine_email_support_data');
