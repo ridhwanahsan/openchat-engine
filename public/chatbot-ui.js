@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
 
   // Send chat
   function appendUserMessage(msg) {
-    const userAvatar = chatbot_ajax.user_avatar_url ? '<img src="' + chatbot_ajax.user_avatar_url + '" alt="User Avatar" class="rxd-user-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '<img src="/wp-content/plugins/my-chatbot/public/rxdbot-theme-preview.png" alt="User Avatar" class="rxd-user-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />';
+    const userAvatar = openchat_engine_ajax.user_avatar_url ? '<img src="' + openchat_engine_ajax.user_avatar_url + '" alt="User Avatar" class="rxd-user-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '<img src="/wp-content/plugins/openchat-engine/public/rxdbot-theme-preview.png" alt="User Avatar" class="rxd-user-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />';
     $("#rxd-chat-output").append(
       '<div class="rxd-chat-row rxd-user-row">' +
         '<span class="rxd-user-bubble">' +
@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
     return html;
   }
   function appendBotMessage(msg) {
-    const botAvatar = chatbot_ajax.bot_avatar_url ? '<img src="' + chatbot_ajax.bot_avatar_url + '" alt="Bot Avatar" class="rxd-bot-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '👤';
+    const botAvatar = openchat_engine_ajax.bot_avatar_url ? '<img src="' + openchat_engine_ajax.bot_avatar_url + '" alt="Bot Avatar" class="rxd-bot-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '👤';
     const $row = $('<div class="rxd-chat-row"></div>');
     $row.append('<span class="rxd-bot-avatar">' + botAvatar + '</span>');
     const $bubble = $(
@@ -109,9 +109,9 @@ jQuery(document).ready(function ($) {
   // Typing animation
   function showTyping() {
     if (!$("#rxd-chat-typing").length) {
-      const botAvatar = chatbot_ajax.bot_avatar_url ? '<img src="' + chatbot_ajax.bot_avatar_url + '" alt="Bot Avatar" class="rxd-bot-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '👤';
+      const botAvatar = openchat_engine_ajax.bot_avatar_url ? '<img src="' + openchat_engine_ajax.bot_avatar_url + '" alt="Bot Avatar" class="rxd-bot-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '👤';
       $("#rxd-chat-output").append(
-        '<div id="rxd-chat-typing" class="rxd-chat-row"><span class="rxd-bot-avatar">' + botAvatar + '</span><span class="rxd-bot-bubble rxd-typing-bubble"><span class="rxd-typing-dot"></span><span class="rxd-typing-dot"></span><span class="rxd-typing-dot"></span> ' + chatbot_ajax.typing_indicator_text + '</span></div>'
+        '<div id="rxd-chat-typing" class="rxd-chat-row"><span class="rxd-bot-avatar">' + botAvatar + '</span><span class="rxd-bot-bubble rxd-typing-bubble"><span class="rxd-typing-dot"></span><span class="rxd-typing-dot"></span><span class="rxd-typing-dot"></span> ' + openchat_engine_ajax.typing_indicator_text + '</span></div>'
       );
       scrollToBottom();
     }
@@ -127,11 +127,11 @@ jQuery(document).ready(function ($) {
     "How to set header menu?",
   ];
   if (
-    typeof chatbot_ajax !== "undefined" &&
-    Array.isArray(chatbot_ajax.example_questions) &&
-    chatbot_ajax.example_questions.length > 0
+    typeof openchat_engine_ajax !== "undefined" &&
+    Array.isArray(openchat_engine_ajax.example_questions) &&
+    openchat_engine_ajax.example_questions.length > 0
   ) {
-    suggestions = chatbot_ajax.example_questions;
+    suggestions = openchat_engine_ajax.example_questions;
   }
 
   // Only populate suggestions if empty
@@ -170,7 +170,7 @@ jQuery(document).ready(function ($) {
   let clientEmail = '';
 
   $("#rxd-send-chat").click(function () {
-    if (chatbot_ajax.prompt_limit_enabled && prompt_count >= chatbot_ajax.prompt_limit) {
+    if (openchat_engine_ajax.prompt_limit_enabled && prompt_count >= openchat_engine_ajax.prompt_limit) {
         emailSupportActive = true;
         collectingEmail = true;
         appendBotMessage("You have reached your daily prompt limit. Please provide your email address for support.");
@@ -227,23 +227,23 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  let session_id = localStorage.getItem('chatbot_session_id');
+  let session_id = localStorage.getItem('openchat_engine_session_id');
   if (!session_id) {
     session_id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
-    localStorage.setItem('chatbot_session_id', session_id);
+    localStorage.setItem('openchat_engine_session_id', session_id);
   }
 
   function sendChatAjax(userMessage, recaptchaToken) {
     jQuery.ajax({
       type: "POST",
-      url: chatbot_ajax.ajax_url,
+      url: openchat_engine_ajax.ajax_url,
       data: {
-        action: "send_chatbot_message",
+        action: "send_openchat_engine_message",
         message: userMessage,
-        nonce: chatbot_ajax.nonce,
+        nonce: openchat_engine_ajax.nonce,
         "g-recaptcha-response": recaptchaToken,
         session_id: session_id,
       },
@@ -284,12 +284,12 @@ jQuery(document).ready(function ($) {
   function sendEmailSupportRequest(email, problem) {
     jQuery.ajax({
       type: "POST",
-      url: chatbot_ajax.ajax_url,
+      url: openchat_engine_ajax.ajax_url,
       data: {
         action: "save_email_support_request",
         email: email,
         problem: problem,
-        nonce: chatbot_ajax.nonce,
+        nonce: openchat_engine_ajax.nonce,
       },
       success: function (res) {
         hideTyping();

@@ -9,21 +9,21 @@ jQuery(document).ready(function($) {
 
         if (clearType === 'all') {
             confirmMessage = 'Are you sure you want to clear ALL chatbot analytics data? This action cannot be undone.';
-            ajaxAction = 'clear_chatbot_analytics';
+            ajaxAction = 'clear_openchat_engine_analytics';
         } else if (clearType === 'email_support') {
             confirmMessage = 'Are you sure you want to clear ALL email support requests? This action cannot be undone.';
-            ajaxAction = 'clear_email_support_data';
+            ajaxAction = 'clear_openchat_engine_email_support_data';
         }
 
         if (confirm(confirmMessage)) {
             button.prop('disabled', true).text('Clearing...');
 
             jQuery.ajax({
-                url: chatbot_analytics_ajax.ajax_url,
+                url: openchat_engine_analytics_ajax.ajax_url,
                 type: 'POST',
                 data: {
                     action: ajaxAction,
-                    nonce: chatbot_analytics_ajax.nonce,
+                    nonce: openchat_engine_analytics_ajax.nonce,
                 },
                 success: function(response) {
                     if (response.success) {

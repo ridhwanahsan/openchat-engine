@@ -1,7 +1,7 @@
 <?php
-function chatbot_analytics_page() {
+function openchat_engine_analytics_page() {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'chatbot_analytics';
+    $table_name = $wpdb->prefix . 'openchat_engine_analytics';
 
     // Total interactions
     $total_interactions = $wpdb->get_var("SELECT COUNT(*) FROM $table_name");
@@ -24,7 +24,7 @@ function chatbot_analytics_page() {
     $last_interaction = $wpdb->get_var("SELECT MAX(timestamp) FROM $table_name");
 
     // Total email support requests
-    $email_support_table_name = $wpdb->prefix . 'chatbot_email_support';
+    $email_support_table_name = $wpdb->prefix . 'openchat_engine_email_support';
     $total_email_support_requests = $wpdb->get_var("SELECT COUNT(*) FROM $email_support_table_name");
 
     // Popular queries
@@ -43,7 +43,7 @@ function chatbot_analytics_page() {
 
     ?>
     <div class="wrap">
-        <h1>Chatbot Analytics</h1>
+        <h1>OpenChat Engine Analytics</h1>
 
         <h2 class="nav-tab-wrapper">
             <a href="#overview" class="nav-tab nav-tab-active" id="overview-tab">Overview</a>
@@ -161,7 +161,7 @@ function chatbot_analytics_page() {
             <div class="analytics-card">
                 <h2>Email Support Requests <button id="clear-email-support-data" class="button button-secondary" data-clear-type="email_support">Clear Email Support Data</button></h2>
                 <?php
-                $email_support_table_name = $wpdb->prefix . 'chatbot_email_support';
+                $email_support_table_name = $wpdb->prefix . 'openchat_engine_email_support';
                 $email_support_requests = $wpdb->get_results("SELECT * FROM $email_support_table_name ORDER BY submission_time DESC LIMIT 50");
 
                 if ($email_support_requests) : ?>
