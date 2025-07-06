@@ -106,17 +106,18 @@ function openchat_engine_display()
 
     $bot_avatar_html = $bot_avatar_url ? '<img src="' . $bot_avatar_url . '" alt="Bot Avatar" class="rxd-bot-avatar-img" width="40" height="40" style="border-radius:50%;background:#e0e0e0;" />' : '👤';
 
-    echo '<div id="rxd-chatbot-widget">
-
-                ' . (($recaptcha_enabled && $recaptcha_site_key) ? '<div class="g-recaptcha" data-sitekey="' . $recaptcha_site_key . '" style="margin-left:10px;"></div>' : '') . '
+    echo <<<HTML
+<div id="rxd-chatbot-widget">
+    
+    
         <button id="rxd-chatbot-toggle">
-            <span class="rxd-chatbot-toggle-avatar">' . $bot_avatar_html . '</span>
+            <span class="rxd-chatbot-toggle-avatar">{$bot_avatar_html}</span>
         </button>
         <div id="rxd-chatbot-ui" style="display:none;">
             <div id="rxd-chatbot-header" >
-                <span class="rxd-bot-avatar">' . $bot_avatar_html . '</span>
+                <span class="rxd-bot-avatar">{$bot_avatar_html}</span>
                 <div class="rxd-header-info">
-                    <div class="rxd-header-title">' . $chatbot_header_title . '</div>
+                    <div class="rxd-header-title">{$chatbot_header_title}</div>
                     <div class="rxd-header-sub"></div>
                 </div>
                 <span class="rxd-header-menu">&#9776;</span>
@@ -134,3 +135,6 @@ function openchat_engine_display()
             </div>
         </div>
     </div>
+HTML;
+}
+add_action('wp_footer', 'openchat_engine_display');
