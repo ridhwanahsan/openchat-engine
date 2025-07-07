@@ -46,6 +46,7 @@
           }
 
           $data = json_decode(wp_remote_retrieve_body($response));
+          error_log('OpenChat API Response: ' . print_r($data, true));
           if (empty($data->valid) || empty($data->version) || empty($data->download_url)) {
               return $transient;
           }
