@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 
     // 1. License Key Settings Page
     add_action('admin_menu', function () {
@@ -33,7 +32,7 @@
 
           require_once (ABSPATH . 'wp-admin/includes/plugin.php');
 
-          $plugin_file = plugin_basename(__FILE__); // e.g., openchat-engine/openchat-engine.php
+          $plugin_file = plugin_basename(OPENCHAT_ENGINE_PLUGIN_FILE);
           $license_key = get_option('openchat_license_key');
           if (! $license_key) {
               return $transient;
