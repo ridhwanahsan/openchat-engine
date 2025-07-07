@@ -1,0 +1,172 @@
+/* Existing styles from analytics-page.php */
+.analytics-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.analytics-card h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #333;
+}
+.analytics-card p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+.analytics-card ol {
+    margin-left: 20px;
+}
+.analytics-card table {
+    margin-top: 15px;
+}
+
+/* Overview specific styles */
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.overview-item {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.overview-item strong {
+    display: block;
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 5px;
+}
+.overview-item span {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #0073aa;
+}
+
+/* Tab styles */
+.nav-tab-wrapper {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0;
+}
+.nav-tab {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 5px 0 0;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    text-decoration: none;
+    color: #555;
+}
+.nav-tab-active {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    color: #000;
+}
+.tab-content {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+}
+.blurred-container {
+    filter: blur(5px);
+    pointer-events: none;
+}
+.premium-notice {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 80%;
+    text-align: center;
+}
+
+/* General Admin Page Improvements */
+.wrap h1 {
+    color: #23282d;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.form-table th {
+    padding-left: 0;
+}
+
+.form-table td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.button-primary {
+    background: #0073aa;
+    border-color: #0073aa;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.button-primary:hover, .button-primary:focus {
+    background: #005177;
+    border-color: #005177;
+}
+
+.notice {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-left: 4px solid;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.notice-warning {
+    border-left-color: #ffb900;
+}
+
+.notice-success {
+    border-left-color: #46b450;
+}
+
+.notice p {
+    margin: 0;
+}
+
+/* Specific styles for settings page */
+#openchat-engine-api-settings h2,
+#openchat-engine-ui-settings h2,
+#openchat-engine-recaptcha-settings h2,
+#openchat-engine-license-settings h2 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#openchat-engine-api-settings .form-table,
+#openchat-engine-ui-settings .form-table,
+#openchat-engine-recaptcha-settings .form-table,
+#openchat-engine-license-settings .form-table {
+    margin-top: 0;
+}
+
+.description {
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Style for the license key input */
+input[name="openchat_license_key"] {
+    font-family: monospace;
+}

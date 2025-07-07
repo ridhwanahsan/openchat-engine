@@ -83,6 +83,7 @@ add_action('wp_enqueue_scripts', 'openchat_engine_enqueue_scripts');
 function openchat_engine_admin_enqueue_scripts($hook_suffix)
 {
     wp_enqueue_script('openchat-engine-admin-analytics-script', plugin_dir_url(__FILE__) . 'admin/analytics-script.js', ['jquery'], null, true);
+    wp_enqueue_style('openchat-engine-admin-style', plugin_dir_url(__FILE__) . 'admin/admin-style.css');
     wp_localize_script('openchat-engine-admin-analytics-script', 'openchat_engine_analytics_ajax', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('openchat_engine_analytics_nonce'),

@@ -12,17 +12,52 @@ function openchat_engine_settings_page()
 {
 ?>
     <div class="wrap">
-        <h1>OpenChat Engine Settings</h1>
+        <h1>OpenChat Engine Setting</h1>
+
+        <h2 class="nav-tab-wrapper">
+            <a href="#api-settings" class="nav-tab nav-tab-active" id="api-settings-tab">API Settings</a>
+            <a href="#ui-settings" class="nav-tab" id="ui-settings-tab">UI Settings</a>
+            <a href="#recaptcha-settings" class="nav-tab" id="recaptcha-settings-tab">reCAPTCHA Settings</a>
+        </h2>
+
         <form method="post" action="options.php">
-            <?php
-            settings_fields('openchat_engine_options_group');
-            do_settings_sections('openchat-engine-api-settings');
-            do_settings_sections('openchat-engine-ui-settings');
-            do_settings_sections('openchat-engine-recaptcha-settings');
-            submit_button();
-            ?>
+            <?php settings_fields('openchat_engine_options_group'); ?>
+
+            <div class="tab-content" id="api-settings">
+                <?php do_settings_sections('openchat-engine-api-settings'); ?>
+            </div>
+
+            <div class="tab-content" id="ui-settings" style="display:none;">
+                <?php do_settings_sections('openchat-engine-ui-settings'); ?>
+            </div>
+
+            <div class="tab-content" id="recaptcha-settings" style="display:none;">
+                <?php do_settings_sections('openchat-engine-recaptcha-settings'); ?>
+            </div>
+
+            <?php submit_button(); ?>
         </form>
     </div>
+
+    <script>
+        jQuery(document).ready(function($) {
+            // Tab functionality
+            $('.nav-tab-wrapper a').on('click', function(e) {
+                e.preventDefault();
+                var target = $(this).attr('href');
+
+                $('.nav-tab-wrapper a').removeClass('nav-tab-active');
+                $(this).addClass('nav-tab-active');
+
+                $('.tab-content').hide();
+                $(target).show();
+            });
+
+            // Initial tab display
+            $('.tab-content').hide();
+            $('#api-settings').show();
+        });
+    </script>
 <?php
 }
 

@@ -10,11 +10,12 @@
         $key = get_option('openchat_license_key', '');
     ?>
   <div class="wrap">
-      <h1>Enter Your License Key</h1>
+      <h1>OpenChat Engine License Setting</h1>
       <form method="post">
           <input type="password" name="openchat_license_key" value="<?php echo esc_attr($key); ?>" style="width:400px;">
-          <br><br>
           <input type="submit" value="Save License" class="button button-primary">
+          <p class="description">Note: License key verification requires an active internet connection. Please make sure your website is connected to the internet before saving the license key.</p>
+          <br><br>
       </form>
   </div>
   <?php
