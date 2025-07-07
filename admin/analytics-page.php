@@ -1,5 +1,24 @@
 <?php
 function openchat_engine_analytics_page() {
+    $license_key = get_option('openchat_license_key');
+    $is_premium = false;
+
+    if ($license_key) {
+        $api_url  = 'https://license-api-ocm3.vercel.app/api/check-key?key=' . urlencode($license_key);
+        $response = wp_remote_get($api_url);
+        if (!is_wp_error($response)) {
+            $data = json_decode(wp_remote_retrieve_body($response));
+            if (!empty($data->valid)) {
+                $is_premium = true;
+            }
+        }
+    }
+
+    if (!$is_premium) {
+        echo '<div class="wrap"><h1>OpenChat Engine Analytics</h1><div class="notice notice-warning"><p>Please go to the developer and buy a license key to access the Analytics tab. A valid license unlocks premium features including advanced usage analytics, priority support, and upcoming integrations with AI model insights and user behavior tracking.</p></div></div>';
+        return;
+    }
+
     global $wpdb;
     $table_name = $wpdb->prefix . 'openchat_engine_analytics';
 
@@ -351,7 +370,22 @@ function openchat_engine_analytics_page() {
             padding: 20px;
             border-radius: 0 0 8px 8px;
         }
+        .blurred-container {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+        .premium-notice {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 80%;
+            text-align: center;
+        }
     </style>
     <?php
+    echo '</div>'; // close container
+    echo '</div>'; // close wrap
 }
 ?>
