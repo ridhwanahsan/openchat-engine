@@ -1,10 +1,6 @@
 <?php
 
     // 1. License Key Settings Page
-    add_action('admin_menu', function () {
-        add_options_page('OpenChat License', 'OpenChat License', 'manage_options', 'openchat-license', 'openchat_license_page');
-    });
-
     function openchat_license_page()
     {
         if (isset($_POST['openchat_license_key'])) {

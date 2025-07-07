@@ -1,8 +1,10 @@
 <?php
 function openchat_engine_admin_menu()
 {
-    add_options_page('OpenChat Engine Settings', 'OpenChat Engine', 'manage_options', 'openchat-engine-settings', 'openchat_engine_settings_page');
-    add_menu_page('OpenChat Engine Analytics', 'OpenChat Engine Analytics', 'manage_options', 'openchat-engine-analytics', 'openchat_engine_analytics_page', 'dashicons-chart-bar', 27);
+    add_menu_page('OpenChat', 'OpenChat', 'manage_options', 'openchat-engine', 'openchat_engine_settings_page', 'dashicons-format-chat', 26);
+    add_submenu_page('openchat-engine', 'Settings', 'Settings', 'manage_options', 'openchat-engine-settings', 'openchat_engine_settings_page');
+    add_submenu_page('openchat-engine', 'Analytics', 'Analytics', 'manage_options', 'openchat-engine-analytics', 'openchat_engine_analytics_page');
+    add_submenu_page('openchat-engine', 'License', 'License', 'manage_options', 'openchat-engine-license', 'openchat_license_page');
 }
 add_action('admin_menu', 'openchat_engine_admin_menu');
 
@@ -14,104 +16,13 @@ function openchat_engine_settings_page()
         <form method="post" action="options.php">
             <?php
             settings_fields('openchat_engine_options_group');
+            do_settings_sections('openchat-engine-api-settings');
+            do_settings_sections('openchat-engine-ui-settings');
+            do_settings_sections('openchat-engine-recaptcha-settings');
+            submit_button();
             ?>
-            <div class="tabs">
-                <ul class="tab-links">
-                    <li class="active"><a href="#tab-api">API Settings</a></li>
-                    <li><a href="#tab-ui">UI Settings</a></li>
-                    <li><a href="#tab-recaptcha">reCAPTCHA</a></li>
-                </ul>
-
-                <div class="tab-content">
-                    <div id="tab-api" class="tab active">
-                        <?php do_settings_sections('openchat-engine-api-settings'); ?>
-                    </div>
-                    <div id="tab-ui" class="tab">
-                        <?php do_settings_sections('openchat-engine-ui-settings'); ?>
-                    </div>
-                    <div id="tab-recaptcha" class="tab">
-                        <?php do_settings_sections('openchat-engine-recaptcha-settings'); ?>
-                    </div>
-                </div>
-            </div>
-            <?php submit_button(); ?>
         </form>
     </div>
-    <style>
-        .tabs {
-            margin-top: 20px;
-        }
-
-        .tab-links {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .tab-links:after {
-            display: block;
-            clear: both;
-            content: '';
-        }
-
-        .tab-links li {
-            margin: 0 5px;
-            float: left;
-            list-style: none;
-        }
-
-        .tab-links a {
-            padding: 10px 15px;
-            display: inline-block;
-            border-radius: 3px 3px 0 0;
-            background: #e0e0e0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #444;
-            transition: all linear 0.15s;
-            text-decoration: none;
-        }
-
-        .tab-links a:hover {
-            background: #d0d0d0;
-        }
-
-        li.active a,
-        li.active a:hover {
-            background: #fff;
-            color: #444;
-        }
-
-        .tab-content {
-            padding: 15px;
-            border-radius: 3px;
-            box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
-            background: #fff;
-        }
-
-        .tab {
-            display: none;
-        }
-
-        .tab.active {
-            display: block;
-        }
-    </style>
-    <script>
-        jQuery(document).ready(function() {
-            jQuery('.tabs .tab-links a').on('click', function(e) {
-                var currentAttrValue = jQuery(this).attr('href');
-
-                // Show/Hide Tabs
-                jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
-
-                // Change/remove current tab to active
-                jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
-
-                e.preventDefault();
-            });
-        });
-    </script>
 <?php
 }
 
