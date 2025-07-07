@@ -285,6 +285,8 @@ function clear_openchat_engine_email_support_data() {
     error_log('[OpenChat Engine Clear Email Support Debug] clear_openchat_engine_email_support_data function called.');
 
     // Check for nonce for security
+    error_log('[OpenChat Engine Clear Email Support Debug] POST data: ' . print_r($_POST, true));
+    error_log('[OpenChat Engine Clear Email Support Debug] Received nonce: ' . ($_POST['nonce'] ?? 'N/A'));
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'openchat_engine_analytics_nonce')) {
         error_log('[OpenChat Engine Clear Email Support Debug] Nonce verification failed.');
         wp_send_json_error(['message' => 'Invalid nonce.'], 403);
@@ -292,7 +294,7 @@ function clear_openchat_engine_email_support_data() {
 
     // Check user capabilities
     if (!current_user_can('manage_options')) {
-        error_log('[OpenChat Engine Clear Analytics Debug] User does not have sufficient permissions.');
+        error_log('[OpenChat Engine Clear Email Support Debug] User does not have sufficient permissions.');
         wp_send_json_error(['message' => 'You do not have sufficient permissions to clear email support data.'], 403);
     }
 

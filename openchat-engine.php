@@ -2,7 +2,7 @@
 /**
  * Plugin Name: OpenChat Engine – AI Chatbot Plugin for WordPress
  * Description: Add a customizable AI-powered chatbot to your site using OpenRouter. Users can enter their own API key and model, and optionally enable Google reCAPTCHA for spam protection.
- * Version: 1.1.9
+ * Version: 1.2.1
  * Author: Rxdbot
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -85,15 +85,11 @@ add_action('wp_enqueue_scripts', 'openchat_engine_enqueue_scripts');
 
 function openchat_engine_admin_enqueue_scripts($hook_suffix)
 {
-    // Only load on the specific analytics page
-    if ('toplevel_page_openchat-engine-analytics' !== $hook_suffix) {
-        return;
-    }
-
     wp_enqueue_script('openchat-engine-admin-analytics-script', plugin_dir_url(__FILE__) . 'admin/analytics-script.js', ['jquery'], null, true);
     wp_localize_script('openchat-engine-admin-analytics-script', 'openchat_engine_analytics_ajax', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('openchat_engine_analytics_nonce'),
+        'current_page' => $hook_suffix,
     ]);
 }
 add_action('admin_enqueue_scripts', 'openchat_engine_admin_enqueue_scripts');
@@ -146,3 +142,32 @@ function openchat_engine_display()
 HTML;
 }
 add_action('wp_footer', 'openchat_engine_display');
+
+
+
+function openchat_engine_email_support_submission()
+{
+    check_ajax_referer('openchat_engine_nonce', 'nonce');
+
+    $client_email        = sanitize_email($_POST['client_email']);
+    $problem_description = sanitize_textarea_field($_POST['problem_description']);
+
+    if (!is_email($client_email)) {
+        wp_send_json_error('Invalid email address.');
+    }
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'openchat_engine_email_support';
+    $wpdb->insert(
+        $table_name,
+        [
+            'client_email'        => $client_email,
+            'problem_description' => $problem_description,
+            'submission_time'     => current_time('mysql'),
+        ]
+    );
+
+    wp_send_json_success('Your support request has been submitted.');
+}
+add_action('wp_ajax_openchat_engine_email_support', 'openchat_engine_email_support_submission');
+add_action('wp_ajax_nopriv_openchat_engine_email_support', 'openchat_engine_email_support_submission');

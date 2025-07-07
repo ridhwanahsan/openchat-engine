@@ -1,11 +1,20 @@
 jQuery(document).ready(function($) {
+    // Check if we are on the correct analytics page
+    if (typeof openchat_engine_analytics_ajax === 'undefined' || openchat_engine_analytics_ajax.current_page !== 'openchat-engine_page_openchat-engine-analytics') {
+        return;
+    }
+
+    console.log('Analytics script loaded and running on the correct page.');
     // Clear Analytics Data functionality
     $('.analytics-card').on('click', '#clear-analytics-data, #clear-email-support-data', function(e) {
         e.preventDefault();
+        console.log('Clear button clicked.');
         var button = $(this);
         var clearType = button.data('clear-type');
         var confirmMessage = '';
         var ajaxAction = '';
+
+        console.log('clearType:', clearType);
 
         if (clearType === 'all') {
             confirmMessage = 'Are you sure you want to clear ALL chatbot analytics data? This action cannot be undone.';
@@ -15,9 +24,16 @@ jQuery(document).ready(function($) {
             ajaxAction = 'clear_openchat_engine_email_support_data';
         }
 
+        console.log('ajaxAction:', ajaxAction);
+
         if (confirm(confirmMessage)) {
             button.prop('disabled', true).text('Clearing...');
+            console.log('Initiating AJAX call...');
 
+            console.log('AJAX Data:', {
+                action: ajaxAction,
+                nonce: openchat_engine_analytics_ajax.nonce
+            });
             jQuery.ajax({
                 url: openchat_engine_analytics_ajax.ajax_url,
                 type: 'POST',
@@ -26,6 +42,7 @@ jQuery(document).ready(function($) {
                     nonce: openchat_engine_analytics_ajax.nonce,
                 },
                 success: function(response) {
+                    console.log('AJAX success:', response);
                     if (response.success) {
                         alert(response.data.message);
                         location.reload(); // Reload the page to show updated data
@@ -35,6 +52,7 @@ jQuery(document).ready(function($) {
                     }
                 },
                 error: function(xhr, status, error) {
+                    console.error('AJAX error:', xhr, status, error);
                     alert('AJAX Error: ' + error);
                     button.prop('disabled', false).text(clearType === 'all' ? 'Clear All Analytics Data' : 'Clear Email Support Data');
                 }
