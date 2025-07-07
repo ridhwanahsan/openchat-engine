@@ -56,7 +56,7 @@
 
           if (version_compare($current_version, $data->version, '<')) {
               $transient->response[$plugin_file] = (object) [
-                  'slug'        => 'openchat-engine',
+                  'slug'        => dirname(plugin_basename(OPENCHAT_ENGINE_PLUGIN_FILE)),
                   'plugin'      => $plugin_file, // ✅ THIS LINE IS VERY IMPORTANT
                   'new_version' => $data->version,
                   'url'         => 'https://github.com/ridhwanahsan/openchat-engine',
