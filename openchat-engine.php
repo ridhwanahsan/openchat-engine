@@ -76,10 +76,7 @@ function openchat_engine_enqueue_scripts()
         'prompt_limit_message'  => get_option('openchat_engine_prompt_limit_message', 'You have reached the daily limit of %s questions. Please come back tomorrow. '),
         'typing_indicator_text' => esc_html(get_option('openchat_engine_typing_indicator_text', 'Assistant is typing...')),
     ]);
-    wp_localize_script('openchat-engine-ui', 'openchat_engine_analytics_ajax', [
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce'    => wp_create_nonce('openchat_engine_analytics_nonce'),
-    ]);
+    
 }
 add_action('wp_enqueue_scripts', 'openchat_engine_enqueue_scripts');
 
@@ -171,3 +168,43 @@ function openchat_engine_email_support_submission()
 }
 add_action('wp_ajax_openchat_engine_email_support', 'openchat_engine_email_support_submission');
 add_action('wp_ajax_nopriv_openchat_engine_email_support', 'openchat_engine_email_support_submission');
+
+// AJAX handler to clear all analytics data
+function openchat_engine_clear_analytics_data() {
+    check_ajax_referer('openchat_engine_analytics_nonce', 'nonce');
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(['message' => 'You do not have permission to perform this action.']);
+        return;
+    }
+
+    global $wpdb;
+    if (isset($_POST['clear_type']) && $_POST['clear_type'] === 'all') {
+        $table_name = $wpdb->prefix . 'openchat_engine_analytics';
+        $wpdb->query("TRUNCATE TABLE $table_name");
+        wp_send_json_success(['message' => 'All analytics data has been cleared.']);
+    } else {
+        wp_send_json_error(['message' => 'Invalid clear type.']);
+    }
+}
+add_action('wp_ajax_clear_openchat_engine_analytics', 'openchat_engine_clear_analytics_data');
+
+// AJAX handler to clear email support data
+function openchat_engine_clear_email_support_data() {
+    check_ajax_referer('openchat_engine_analytics_nonce', 'nonce');
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(['message' => 'You do not have permission to perform this action.']);
+        return;
+    }
+
+    global $wpdb;
+    if (isset($_POST['clear_type']) && $_POST['clear_type'] === 'email_support') {
+        $table_name = $wpdb->prefix . 'openchat_engine_email_support';
+        $wpdb->query("TRUNCATE TABLE $table_name");
+        wp_send_json_success(['message' => 'All email support data has been cleared.']);
+    } else {
+        wp_send_json_error(['message' => 'Invalid clear type.']);
+    }
+}
+add_action('wp_ajax_clear_openchat_engine_email_support_data', 'openchat_engine_clear_email_support_data');

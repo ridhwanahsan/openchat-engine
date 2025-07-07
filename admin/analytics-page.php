@@ -271,23 +271,23 @@ function openchat_engine_analytics_page() {
             // Initial tab display
             $('.tab-content').hide();
             $('#overview').show();
+        });
 
-            // Read More/Less functionality
-            $('.wp-list-table').on('click', '.read-more-toggle', function(e) {
-                e.preventDefault();
-                var $this = $(this);
-                var $contentSpan = $this.siblings('.bot-response-content');
-                var fullText = $this.data('full-text');
-                var truncatedText = $this.data('truncated-text');
+        // Read More/Less functionality for dynamically loaded content
+        jQuery(document).on('click', '.read-more-toggle', function(e) {
+            e.preventDefault();
+            var $this = jQuery(this);
+            var $contentSpan = $this.siblings('.bot-response-content');
+            var fullText = $this.data('full-text');
+            var truncatedText = $this.data('truncated-text');
 
-                if ($this.text() === '...Read More') {
-                    $contentSpan.text(fullText);
-                    $this.text(' Read Less');
-                } else {
-                    $contentSpan.text(truncatedText);
-                    $this.text('...Read More');
-                }
-            });
+            if ($this.text() === '...Read More') {
+                $contentSpan.text(fullText);
+                $this.text(' Read Less');
+            } else {
+                $contentSpan.text(truncatedText);
+                $this.text('...Read More');
+            }
         });
     </script>
     <style>

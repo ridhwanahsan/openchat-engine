@@ -1,6 +1,8 @@
 jQuery(document).ready(function($) {
+    console.log('openchat_engine_analytics_ajax:', typeof openchat_engine_analytics_ajax !== 'undefined' ? openchat_engine_analytics_ajax : 'undefined');
+    console.log('openchat_engine_analytics_ajax.current_page:', typeof openchat_engine_analytics_ajax !== 'undefined' ? openchat_engine_analytics_ajax.current_page : 'undefined');
     // Check if we are on the correct analytics page
-    if (typeof openchat_engine_analytics_ajax === 'undefined' || openchat_engine_analytics_ajax.current_page !== 'openchat-engine_page_openchat-engine-analytics') {
+    if (typeof openchat_engine_analytics_ajax === 'undefined' || openchat_engine_analytics_ajax.current_page !== 'openchat_page_openchat-engine-analytics') {
         return;
     }
 
@@ -40,6 +42,7 @@ jQuery(document).ready(function($) {
                 data: {
                     action: ajaxAction,
                     nonce: openchat_engine_analytics_ajax.nonce,
+                    clear_type: clearType
                 },
                 success: function(response) {
                     console.log('AJAX success:', response);
