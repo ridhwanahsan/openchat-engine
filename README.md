@@ -1,6 +1,7 @@
 # OpenChat Engine – AI Chatbot Plugin for WordPress
 
 This guide will help you install, configure, and use the OpenChat Engine plugin to add a customizable AI-powered chatbot to your WordPress website.
+![Untitled Design](https://i.postimg.cc/cCKKrZCs/Untitled-design.png)
 
 ## Table of Contents
 1.  [Installation](#installation)
