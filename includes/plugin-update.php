@@ -32,7 +32,8 @@ add_filter('site_transient_update_plugins', function ($transient) {
   $license_key = get_option('openchat_license_key');
   if (!$license_key) return $transient;
 
-  $api_url = 'https://license-autycu0ww-ridhwanahsans-projects.vercel.app/api/check-key?key=' . urlencode($license_key);
+$api_url = 'https://license-api-ocm3.vercel.app/api/check-key?key=' . urlencode($license_key);
+
 
   $response = wp_remote_get($api_url);
 
