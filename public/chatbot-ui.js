@@ -1,4 +1,7 @@
 jQuery(document).ready(function ($) {
+  // Add the plugin class to the chatbot widget's parent element
+  $("#rxd-chatbot-widget").parent().addClass("openchat-engine-plugin");
+
   // Ensure toggle and close handlers are attached only once
   $(document)
     .off("click", "#rxd-chatbot-toggle")
@@ -206,7 +209,7 @@ jQuery(document).ready(function ($) {
         collectingEmail = false;
         collectingProblem = true;
         appendBotMessage("What is your problem?");
-        hideTyping();
+        hide.Typing();
         $("#rxd-send-chat").prop("disabled", false);
       } else if (collectingProblem) {
         const problemDescription = userMessage;

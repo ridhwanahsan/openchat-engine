@@ -1,11 +1,24 @@
-#rxd-chatbot-widget {
+.openchat-engine-plugin #rxd-chatbot-widget,
+.openchat-engine-plugin #rxd-chatbot-widget * {
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  text-align: left;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  color: #000;
+  font-family: sans-serif;
+}
+
+.openchat-engine-plugin #rxd-chatbot-widget {
   position: fixed !important;
   right: 32px !important;
   bottom: 32px !important;
   z-index: 9999 !important;
   text-align: right;
 }
-#rxd-chatbot-toggle {
+.openchat-engine-plugin #rxd-chatbot-toggle {
   background: transparent;
   border: none;
   padding: 0;
@@ -18,7 +31,7 @@
   border-radius: 0;
 }
 
-#rxd-chatbot-toggle .rxd-chatbot-toggle-avatar {
+.openchat-engine-plugin #rxd-chatbot-toggle .rxd-chatbot-toggle-avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -34,13 +47,13 @@
   flex-shrink: 0;
 }
 
-#rxd-chatbot-toggle .rxd-chatbot-toggle-avatar img {
+.openchat-engine-plugin #rxd-chatbot-toggle .rxd-chatbot-toggle-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-#rxd-chatbot-toggle .rxd-chatbot-toggle-text-wrapper {
+.openchat-engine-plugin #rxd-chatbot-toggle .rxd-chatbot-toggle-text-wrapper {
   background: #0073aa;
   color: #fff;
   border-radius: 25px;
@@ -55,24 +68,24 @@
   height: 50px; /* Match avatar height */
 }
 
-#rxd-chatbot-toggle .rxd-chatbot-toggle-text-wrapper:hover {
+.openchat-engine-plugin #rxd-chatbot-toggle .rxd-chatbot-toggle-text-wrapper:hover {
   background: #005177;
 }
 
-#rxd-chatbot-toggle .rxd-chatbot-toggle-text {
+.openchat-engine-plugin #rxd-chatbot-toggle .rxd-chatbot-toggle-text {
   /* No specific styles needed here, inherited from wrapper */
 }
 
-#rxd-chatbot-toggle:hover {
+.openchat-engine-plugin #rxd-chatbot-toggle:hover {
   background: transparent;
 }
 
-#rxd-chatbot-toggle:hover .rxd-chatbot-toggle-text-wrapper {
+.openchat-engine-plugin #rxd-chatbot-toggle:hover .rxd-chatbot-toggle-text-wrapper {
   background: #005177;
 }
 
 
-#rxd-chatbot-ui {
+.openchat-engine-plugin #rxd-chatbot-ui {
   width: 440px;
   height: 650px;
   max-width: 98vw;
@@ -88,19 +101,19 @@
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 @media (max-width: 600px) {
-  #rxd-chatbot-ui {
+  .openchat-engine-plugin #rxd-chatbot-ui {
     width: 99vw;
     height: 98vh;
     right: 0;
     left: 0;
     border-radius: 0;
   }
-  #rxd-chatbot-widget {
+  .openchat-engine-plugin #rxd-chatbot-widget {
     right: 0;
     left: 0;
   }}
 /* Chat area */
-#rxd-chat-output {
+.openchat-engine-plugin #rxd-chat-output {
   min-height: 180px;
   /* Fill all space above input and suggestions */
   position: absolute;
@@ -109,31 +122,41 @@
   right: 0;
   bottom: 112px; /* input row (56px) + suggestions (56px) */
   overflow-y: auto;
-  background: #f4f7fa;
-  padding: 28px 18px 18px 18px;
+  background: #f8f8f8; /* Lighter background */
+  padding: 20px 18px; /* Adjusted padding */
   font-size: 18px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 15px; /* Adjusted gap between messages */
   margin-bottom: 0;
   box-sizing: border-box;
   z-index: 1;
   /* Add extra padding-bottom so last message is never hidden */
   padding-bottom: 90px;
 }
+.openchat-engine-plugin #rxd-chat-output::-webkit-scrollbar {
+  width: 8px;
+}
+.openchat-engine-plugin #rxd-chat-output::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Lighter scrollbar thumb */
+  border-radius: 4px;
+}
+.openchat-engine-plugin #rxd-chat-output::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Lighter scrollbar track */
+}
 /* Message bubbles */
-.rxd-chat-row {
+.openchat-engine-plugin .rxd-chat-row {
   display: flex;
   align-items: flex-end;
-  margin-bottom: 2px;
+  margin-bottom: 10px; /* Adjusted margin for better spacing */
 }
-.rxd-bot-row {
+.openchat-engine-plugin .rxd-bot-row {
   justify-content: flex-start;
 }
-.rxd-user-row {
+.openchat-engine-plugin .rxd-user-row {
   justify-content: flex-end;
 }
-.rxd-bot-avatar, .rxd-user-avatar {
+.openchat-engine-plugin .rxd-bot-avatar, .rxd-user-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -143,45 +166,46 @@
   justify-content: center;
   font-size: 22px;
   margin: 0 10px;
+  flex-shrink: 0; /* Prevent avatar from shrinking */
 }
-.rxd-user-avatar {
+.openchat-engine-plugin .rxd-user-avatar {
   background: #e0e0e0;
   color: #888;
 }
-.rxd-bot-bubble {
-  background: linear-gradient(90deg, #2196f3 0%, #1ec6ff 100%);
-  color: #fff;
-  border-radius: 22px 22px 22px 8px;
-  padding: 4px 5px;
-  max-width: 80%;
-  box-shadow: 0 2px 12px rgba(33,150,243,0.10);
-  font-size: 18px;
+.openchat-engine-plugin .rxd-bot-bubble {
+  background: #e0f2f7; /* Light blue */
+  color: #333; /* Darker text for contrast */
+  border-radius: 18px 18px 18px 6px; /* More rounded */
+  padding: 10px 15px; /* Adjusted padding */
+  max-width: 78%; /* Slightly increased max-width */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* Softer shadow */
+  font-size: 15px; /* Slightly smaller font */
   word-break: break-word;
-  font-weight: 500;
-  line-height: 1.7;
+  font-weight: 400;
+  line-height: 1.5;
   text-align: left;
-  margin-bottom: 2px;
+  margin-bottom: 0;
   margin-left: 8px;
 }
-.rxd-user-bubble {
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 100%);
-  color: #222;
-  border-radius: 22px 22px 8px 22px;
-  padding: 16px 22px;
-  max-width: 80%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  font-size: 18px;
+.openchat-engine-plugin .rxd-user-bubble {
+  background: #e6e6fa; /* Light purple/lavender */
+  color: #333; /* Darker text for contrast */
+  border-radius: 18px 18px 6px 18px; /* More rounded */
+  padding: 10px 15px; /* Adjusted padding */
+  max-width: 78%; /* Slightly increased max-width */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* Softer shadow */
+  font-size: 15px; /* Slightly smaller font */
   word-break: break-word;
-  font-weight: 500;
-  line-height: 1.7;
-  margin-bottom: 2px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 0;
   margin-right: 8px;
 }
 /* Input area */
-#rxd-chatbot-input-row {
+.openchat-engine-plugin #rxd-chatbot-input-row {
   display: flex;
   align-items: center;
-  padding: 18px 18px 22px 18px;
+  padding: 4px 18px 0px 18px;
   background: #fff;
   border-top: 1px solid #e0e0e0;
   margin-top: 0;
@@ -190,11 +214,11 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 56px; /* height of .rxd-chat-suggestions-wrap */
+  bottom: 80px; /* height of .rxd-chat-suggestions-wrap */
   z-index: 15;
   box-shadow: 0 -2px 8px rgba(33,150,243,0.06);
 }
-#rxd-chat-input {
+.openchat-engine-plugin #rxd-chat-input {
   flex: 1;
   padding: 14px 18px;
   border: 1.5px solid #d0d0d0;
@@ -205,10 +229,10 @@
   background: #f7fafd;
   transition: border 0.2s;
 }
-#rxd-chat-input:focus {
+.openchat-engine-plugin #rxd-chat-input:focus {
   border: 2px solid #2196f3;
 }
-#rxd-send-chat {
+.openchat-engine-plugin #rxd-send-chat {
   background: #2196f3;
   color: #fff;
   border: none;
@@ -223,12 +247,12 @@
   transition: background 0.2s;
   margin-left: 0;
 }
-#rxd-send-chat:disabled {
+.openchat-engine-plugin #rxd-send-chat:disabled {
   background: #b3d6f7;
   cursor: not-allowed;
 }
 /* Code block styles for bot replies */
-.rxd-chatbot-code {
+.openchat-engine-plugin .rxd-chatbot-code {
   background: #23272e;
   color: #f8f8f2;
   border-radius: 10px;
@@ -241,7 +265,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   position: relative;
 }
-.rxd-bot-bubble code {
+.openchat-engine-plugin .rxd-bot-bubble code {
   background: #23272e;
   color: #f8f8f2;
   border-radius: 4px;
@@ -249,10 +273,10 @@
   font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
   font-size: 16px;
 }
-#rxd-chat-output pre {
+.openchat-engine-plugin #rxd-chat-output pre {
   margin: 0;
 }
-.rxd-code-copy-btn {
+.openchat-engine-plugin .rxd-code-copy-btn {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -267,12 +291,12 @@
   transition: background 0.2s, opacity 0.2s;
   z-index: 2;
 }
-.rxd-code-copy-btn:hover {
+.openchat-engine-plugin .rxd-code-copy-btn:hover {
   background: #1ec6ff;
   opacity: 1;
 }
 /* Preview area */
-#rxd-chat-preview-toggle {
+.openchat-engine-plugin #rxd-chat-preview-toggle {
   background: #2196f3;
   color: #fff;
   border: none;
@@ -284,7 +308,7 @@
   cursor: pointer;
   float: right;
 }
-#rxd-chat-preview-area {
+.openchat-engine-plugin #rxd-chat-preview-area {
   width: 100%;
   min-height: 120px;
   background: #f7fafd;
@@ -297,17 +321,17 @@
   overflow: auto;
 }
 /* Visually hidden submit for accessibility */
-#rxd-chatbot-submit {
+.openchat-engine-plugin #rxd-chatbot-submit {
   position: absolute;
   left: -9999px;
   width: 1px;
   height: 1px;
   overflow: hidden;
 }
-.rxd-bot-row .rxd-bot-bubble {
+.openchat-engine-plugin .rxd-bot-row .rxd-bot-bubble {
   position: relative;
 }
-.rxd-bot-row .rxd-bot-preview-divider {
+.openchat-engine-plugin .rxd-bot-row .rxd-bot-preview-divider {
   margin: 18px 0 8px 0;
   border: none;
   border-top: 1.5px solid #e0e7ef;
@@ -315,7 +339,7 @@
   margin-left: 10%;
   opacity: 0.7;
 }
-.rxd-bot-row .rxd-bot-theme-image {
+.openchat-engine-plugin .rxd-bot-row .rxd-bot-theme-image {
   display: block;
   margin: 8px auto 0 auto;
   max-width: 180px;
@@ -324,7 +348,7 @@
   border: 1.5px solid #e0e7ef;
 }
 /* Typing animation */
-.rxd-typing-bubble {
+.openchat-engine-plugin .rxd-typing-bubble {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -336,10 +360,10 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border: none;
 }
-.rxd-typing-dot {
+.openchat-engine-plugin .rxd-typing-dot {
   background: #555;
 }
-.rxd-typing-dot {
+.openchat-engine-plugin .rxd-typing-dot {
   display: inline-block;
   width: 8px;
   height: 8px;
@@ -349,14 +373,14 @@
   opacity: 0.7;
   animation: typing-bounce 1.2s infinite both;
 }
-.rxd-typing-dot:nth-child(1) { animation-delay: 0s; }
-.rxd-typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.rxd-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+.openchat-engine-plugin .rxd-typing-dot:nth-child(1) { animation-delay: 0s; }
+.openchat-engine-plugin .rxd-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.openchat-engine-plugin .rxd-typing-dot:nth-child(3) { animation-delay: 0.4s; }
 @keyframes typing-bounce {
   0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
   40% { transform: scale(1.2); opacity: 1; }
 }
-#rxd-chat-suggestions {
+.openchat-engine-plugin #rxd-chat-suggestions {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -372,38 +396,42 @@
   box-sizing: border-box;
   flex: 1 1 auto;
 }
-#rxd-chat-suggestions::-webkit-scrollbar {
+.openchat-engine-plugin #rxd-chat-suggestions::-webkit-scrollbar {
   height: 6px;
 }
-#rxd-chat-suggestions::-webkit-scrollbar-thumb {
+.openchat-engine-plugin #rxd-chat-suggestions::-webkit-scrollbar-thumb {
   background: #2196f3;
   border-radius: 6px;
 }
-#rxd-chat-suggestions::-webkit-scrollbar-track {
+.openchat-engine-plugin #rxd-chat-suggestions::-webkit-scrollbar-track {
   background: #e3f0fb;
   border-radius: 6px;
 }
-.rxd-chat-suggestion-btn {
-  background: #e3f0fb;
-  color: #2196f3;
-  border: none;
-  border-radius: 18px;
-  padding: 8px 18px;
-  font-size: 15px;
+.openchat-engine-plugin .rxd-chat-suggestion-btn {
+  background: #f0f0f0; /* Lighter background */
+  color: #555; /* Softer text color */
+  border: 1px solid #e0e0e0; /* Subtle border */
+  border-radius: 20px; /* More rounded */
+  padding: 8px 16px; /* Adjusted padding */
+  font-size: 14px; /* Slightly smaller font */
   margin: 0;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 1px 4px rgba(33,150,243,0.07);
+  transition: all 0.2s ease-in-out; /* Smooth transition for all properties */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Softer shadow */
   white-space: nowrap;
   flex-shrink: 0;
 }
-.rxd-chat-suggestion-btn.selected {
+.openchat-engine-plugin .rxd-chat-suggestion-btn:hover {
+  background: #e8e8e8; /* Slightly darker on hover */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* More prominent shadow on hover */
+}
+.openchat-engine-plugin .rxd-chat-suggestion-btn.selected {
   background: #2196f3 !important;
   color: #fff !important;
   box-shadow: 0 2px 8px rgba(33,150,243,0.18);
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
-.rxd-chat-suggestion-arrow {
+.openchat-engine-plugin .rxd-chat-suggestion-arrow {
   background: #e3f0fb;
   color: #2196f3;
   border: none;
@@ -419,16 +447,16 @@
   transition: background 0.2s, color 0.2s;
   flex-shrink: 0;
 }
-.rxd-chat-suggestion-arrow:hover {
+.openchat-engine-plugin .rxd-chat-suggestion-arrow:hover {
   background: #2196f3;
   color: #fff;
 }
-.rxd-chat-suggestions-wrap {
+.openchat-engine-plugin .rxd-chat-suggestions-wrap {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;
+  background: #f8f8f8; /* Lighter background for the wrap */
   min-height: 48px;
   box-sizing: border-box;
   z-index: 20;
@@ -437,13 +465,13 @@
   right: 0;
   bottom: 0;
   margin: 0;
-  box-shadow: 0 -2px 8px rgba(33,150,243,0.07);
-  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05); /* Softer shadow */
+  border-top: 1px solid #f0f0f0; /* Lighter border */
   padding: 6px 8px 6px 8px;
 }
 
 /* Style the reCAPTCHA widget inside the chatbot input row */
-#rxd-chatbot-input-row .g-recaptcha {
+.openchat-engine-plugin #rxd-chatbot-input-row .g-recaptcha {
   margin-left: 16px;
   transform: scale(0.92);
   transform-origin: left center;
@@ -453,76 +481,81 @@
 }
 
 @media (max-width: 600px) {
-  #rxd-chatbot-input-row .g-recaptcha {
+  .openchat-engine-plugin #rxd-chatbot-input-row .g-recaptcha {
     transform: scale(0.85);
     margin-left: 4px;
   }
 }
 
 /* Optional: prevent reCAPTCHA from overflowing input row */
-#rxd-chatbot-input-row {
+.openchat-engine-plugin #rxd-chatbot-input-row {
   flex-wrap: wrap;
   gap: 8px;
 }
 
 
 /* Header */
-#rxd-chatbot-header {
-  background: #2196f3;
+.openchat-engine-plugin #rxd-chatbot-header {
+  background: linear-gradient(90deg, #2196f3 0%, #1ec6ff 100%); /* Gradient background */
   color: #fff;
-  padding: 10px 14px 7px 14px;
+  padding: 12px 18px; /* Adjusted padding */
   display: flex;
   align-items: center;
-  border-radius: 22px 22px 0 0;
+  border-radius: 20px 20px 0 0; /* More rounded top corners */
   position: relative;
-  min-height: 48px;
+  min-height: 55px; /* Slightly increased min-height */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Subtle shadow */
 }
-#rxd-chatbot-header .rxd-bot-avatar {
-  width: 32px;
-  height: 32px;
+.openchat-engine-plugin #rxd-chatbot-header .rxd-bot-avatar {
+  width: 36px; /* Slightly larger avatar */
+  height: 36px; /* Slightly larger avatar */
   border-radius: 50%;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
-  font-size: 18px;
+  margin-right: 12px; /* Adjusted margin */
+  font-size: 20px; /* Slightly larger font */
   color: #2196f3;
   border: 2px solid #fff;
 }
-#rxd-chatbot-header .rxd-header-info {
+.openchat-engine-plugin #rxd-chatbot-header .rxd-header-info {
   flex: 1;
 }
-#rxd-chatbot-header .rxd-header-title {
+.openchat-engine-plugin #rxd-chatbot-header .rxd-header-title {
   font-weight: bold;
-  font-size: 15px;
-  letter-spacing: 1px;
+  font-size: 16px; /* Slightly larger font */
+  letter-spacing: 0.5px; /* Adjusted letter spacing */
 }
-#rxd-chatbot-header .rxd-header-sub {
-  font-size: 12px;
-  opacity: 0.85;
+.openchat-engine-plugin #rxd-chatbot-header .rxd-header-sub {
+  font-size: 13px; /* Slightly larger font */
+  opacity: 0.9; /* Slightly less transparent */
 }
-#rxd-chatbot-header .rxd-header-menu {
-  font-size: 18px;
+.openchat-engine-plugin #rxd-chatbot-header .rxd-header-menu {
+  font-size: 20px; /* Slightly larger font */
   cursor: pointer;
-  margin-left: 8px;
-  opacity: 0.7;
+  margin-left: 10px; /* Adjusted margin */
+  opacity: 0.8; /* Slightly less transparent */
+  transition: opacity 0.2s; /* Smooth transition */
 }
-#rxd-chatbot-close {
+.openchat-engine-plugin #rxd-chatbot-header .rxd-header-menu:hover {
+  opacity: 1;
+}
+.openchat-engine-plugin #rxd-chatbot-close {
   background: none;
   border: none;
   color: #fff;
-  font-size: 24px;
+  font-size: 26px; /* Slightly larger font */
   font-weight: bold;
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: 10px; /* Adjusted margin */
   margin-right: 0;
-  padding: 4px 8px;
+  padding: 5px 10px; /* Adjusted padding */
   transition: background 0.2s, color 0.2s;
   border-radius: 50%;
   line-height: 1;
 }
-#rxd-chatbot-close:hover {
+.openchat-engine-plugin #rxd-chatbot-close:hover {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
-};
+}

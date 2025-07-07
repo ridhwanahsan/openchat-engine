@@ -59,7 +59,7 @@ function openchat_engine_enqueue_scripts()
     $recaptcha_enabled  = get_option('openchat_engine_recaptcha_enabled');
     $recaptcha_site_key = get_option('openchat_engine_recaptcha_site_key', '');
     wp_enqueue_script('openchat-engine-ui', plugin_dir_url(__FILE__) . 'public/chatbot-ui.js', ['jquery'], null, true);
-    wp_enqueue_style('openchat-engine-ui-css', plugin_dir_url(__FILE__) . 'public/chatbot-ui.css');
+    wp_enqueue_style('openchat-engine-ui-css', plugin_dir_url(__FILE__) . 'public/chatbot-ui.css', [], filemtime(plugin_dir_path(__FILE__) . 'public/chatbot-ui.css'));
     if ($recaptcha_enabled && $recaptcha_site_key) {
         wp_enqueue_script('recaptcha', 'https://www.google.com/recaptcha/api.js', [], null, true); // Add reCAPTCHA
     }
