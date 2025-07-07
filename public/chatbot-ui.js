@@ -116,11 +116,13 @@ jQuery(document).ready(function ($) {
       $("#rxd-chat-output").append(
         '<div id="rxd-chat-typing" class="rxd-chat-row"><span class="rxd-bot-avatar">' + botAvatar + '</span><span class="rxd-bot-bubble rxd-typing-bubble"><span class="rxd-typing-dot"></span><span class="rxd-typing-dot"></span><span class="rxd-typing-dot"></span> ' + openchat_engine_ajax.typing_indicator_text + '</span></div>'
       );
+      $("#rxd-chat-input").prop("disabled", true); // Disable input when typing
       scrollToBottom();
     }
   }
   function hideTyping() {
     $("#rxd-chat-typing").remove();
+    $("#rxd-chat-input").prop("disabled", false); // Enable input when not typing
   }
   // Suggested questions
   let suggestions = [
@@ -186,8 +188,6 @@ jQuery(document).ready(function ($) {
     if (!userMessage) return;
     appendUserMessage(userMessage);
     $("#rxd-chat-input").val("");
-    $("#rxd-send-chat").prop("disabled", true);
-    showTyping();
 
     // For visible reCAPTCHA v2 widget
     var recaptchaToken = "";
@@ -209,14 +209,13 @@ jQuery(document).ready(function ($) {
         collectingEmail = false;
         collectingProblem = true;
         appendBotMessage("What is your problem?");
-        hide.Typing();
+        hideTyping();
         $("#rxd-send-chat").prop("disabled", false);
       } else if (collectingProblem) {
         const problemDescription = userMessage;
+        showTyping();
+        $("#rxd-send-chat").prop("disabled", true);
         sendEmailSupportRequest(clientEmail, problemDescription);
-        emailSupportActive = false;
-        collectingProblem = false;
-        clientEmail = ''; // Clear email after sending
       }
     } else if (userMessage.toLowerCase().includes("email support") || userMessage.toLowerCase().includes("contact support")) {
       emailSupportActive = true;
@@ -225,6 +224,8 @@ jQuery(document).ready(function ($) {
       hideTyping();
       $("#rxd-send-chat").prop("disabled", false);
     } else {
+      showTyping();
+      $("#rxd-send-chat").prop("disabled", true);
       sendChatAjax(userMessage, recaptchaToken);
       prompt_count++;
     }
@@ -302,11 +303,17 @@ jQuery(document).ready(function ($) {
         } else {
           appendBotMessage("❌ Failed to submit your support request. Please try again later.");
         }
+        emailSupportActive = false;
+        collectingProblem = false;
+        clientEmail = ''; // Clear email after sending
       },
       error: function (xhr) {
         hideTyping();
         $("#rxd-send-chat").prop("disabled", false);
         appendBotMessage("❌ An error occurred while submitting your support request. Please try again later.");
+        emailSupportActive = false;
+        collectingProblem = false;
+        clientEmail = ''; // Clear email after sending
       },
     });
   }
