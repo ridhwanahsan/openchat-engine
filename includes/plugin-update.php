@@ -51,7 +51,7 @@
               return $transient;
           }
 
-          $plugin_data     = get_plugin_data(__FILE__);
+          $plugin_data     = get_plugin_data(OPENCHAT_ENGINE_PLUGIN_FILE);
           $current_version = $plugin_data['Version'];
 
           if (version_compare($current_version, $data->version, '<')) {
