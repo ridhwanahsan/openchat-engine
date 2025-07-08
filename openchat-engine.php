@@ -2,7 +2,7 @@
 /**
  * Plugin Name: OpenChat Engine – AI Chatbot Plugin for WordPress
  * Description: Add a customizable AI-powered chatbot to your site using OpenRouter. Users can enter their own API key and model, and optionally enable Google reCAPTCHA for spam protection.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: Rxdbot
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
